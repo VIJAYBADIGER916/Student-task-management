@@ -47,4 +47,12 @@ li {
     color: white;
     border: none;
     padding: 5px;
+.completed {
+    text-decoration: line-through;
+    color: red;
+    font-weight: bold;
+}
+span {
+    cursor: pointer;
+}
 }
