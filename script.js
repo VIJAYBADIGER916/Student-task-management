@@ -3,10 +3,13 @@ document.addEventListener("DOMContentLoaded", loadTasks);
 function addTask() {
 
     const taskInput = document.getElementById("taskInput");
-    const taskText = taskInput.value;
+
+    const taskText = taskInput.value.trim();
 
     if (taskText === "") {
+
         alert("Please enter a task");
+
         return;
     }
 
@@ -22,13 +25,16 @@ function createTaskElement(taskText) {
     const li = document.createElement("li");
 
     li.innerHTML = `
+
         <span onclick="completeTask(this)">
             ${taskText}
         </span>
 
-        <button class="delete-btn" onclick="deleteTask(this)">
+        <button class="delete-btn"
+                onclick="deleteTask(this)">
             Delete
         </button>
+
     `;
 
     document.getElementById("taskList").appendChild(li);
@@ -37,6 +43,7 @@ function createTaskElement(taskText) {
 function deleteTask(button) {
 
     const li = button.parentElement;
+
     const taskText = li.querySelector("span").innerText;
 
     removeTaskFromStorage(taskText);
@@ -45,32 +52,71 @@ function deleteTask(button) {
 }
 
 function completeTask(task) {
+
     task.classList.toggle("completed");
 }
 
 function saveTask(task) {
 
-    let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+    let tasks =
+        JSON.parse(localStorage.getItem("tasks")) || [];
 
     tasks.push(task);
 
-    localStorage.setItem("tasks", JSON.stringify(tasks));
+    localStorage.setItem(
+        "tasks",
+        JSON.stringify(tasks)
+    );
 }
 
 function loadTasks() {
 
-    let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+    let tasks =
+        JSON.parse(localStorage.getItem("tasks")) || [];
 
     tasks.forEach(task => {
+
         createTaskElement(task);
     });
 }
 
 function removeTaskFromStorage(taskText) {
 
-    let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+    let tasks =
+        JSON.parse(localStorage.getItem("tasks")) || [];
 
     tasks = tasks.filter(task => task !== taskText);
 
-    localStorage.setItem("tasks", JSON.stringify(tasks));
+    localStorage.setItem(
+        "tasks",
+        JSON.stringify(tasks)
+    );
+}
+
+function searchTask() {
+
+    const input =
+        document.getElementById("searchInput")
+        .value
+        .toLowerCase();
+
+    const tasks =
+        document.querySelectorAll("li");
+
+    tasks.forEach(task => {
+
+        if (
+            task.textContent
+                .toLowerCase()
+                .includes(input)
+        ) {
+
+            task.style.display = "flex";
+
+        } else {
+
+            task.style.display = "none";
+        }
+
+    });
 }
