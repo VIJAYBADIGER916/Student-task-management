@@ -1,2 +1,14 @@
-# Student-task-management
-helps to track the student tasks
+# Student Task Manager
+
+## Features
+- Add task
+- Delete task
+- Mark completed
+
+## Technologies
+- HTML
+- CSS
+- JavaScript
+
+## Installation
+Open index.html in browser.
